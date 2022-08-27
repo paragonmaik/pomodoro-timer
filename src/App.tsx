@@ -8,7 +8,7 @@ function App() {
     <>
       <h1>pomodoro</h1>
       <PomodoroOptions />
-      <Timer minutes={25} seconds={0} />
+      <Timer minutes={'25'} seconds={'00'} />
     </>
   )
 }
