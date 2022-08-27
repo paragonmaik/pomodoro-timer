@@ -1,17 +1,22 @@
-import { useState } from 'react';
-
-const options: object = {
-  pomodoro: 25,
-  shortBreak: 5,
-  longBreak: 15,
-  longBreakInterval: 4,
-}
+import React, { useState } from 'react';
+import { timerOptions } from '../typescript/types';
 
 function PomodoroOptions() {
-  const [timerOptions, setTimerOptions] = useState(options);
+  const defaultOptions: timerOptions = {
+    pomodoro: 25,
+    shortBreak: 5,
+    longBreak: 15,
+    longBreakInterval: 4,
+  }
+  const [timerOptions, setTimerOptions] = useState(defaultOptions);
 
-  const handleMode = () => {
+  const switchMode = (mode: string) => {
+    console.log(defaultOptions.pomodoro);
+  }
 
+  const handleMode = (event: React.MouseEvent) => {
+    const mode: string = event.currentTarget.id;
+    switchMode(mode);
   }
 
   return (
@@ -19,21 +24,21 @@ function PomodoroOptions() {
       <button
         type='button'
         id='pomochoro'
-        onClick={ handleMode }
+        onClick={ (event) => handleMode(event) }
       >
         Pomochoro
       </button>
       <button
         type='button'
         id='shortBreak'
-        onClick={ handleMode }
+        onClick={ (event) => handleMode(event) }
       >
         Short Break
       </button>
       <button
         type='button'
         id='longBreak'
-        onClick={ handleMode }
+        onClick={ (event) => handleMode(event) }
       >
         Long break
       </button>
