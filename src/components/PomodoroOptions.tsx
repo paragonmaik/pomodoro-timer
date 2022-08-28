@@ -1,29 +1,14 @@
-import React, { useState } from 'react';
-import { timerOptions } from '../typescript/types';
+import React, { useContext } from 'react';
+import { TimerContext } from '../context/TimerContext';
 
 function PomodoroOptions() {
-  const defaultOptions: timerOptions = {
-    pomodoro: 25,
-    shortBreak: 5,
-    longBreak: 15,
-    longBreakInterval: 4,
-  }
-  const [timerOptions, setTimerOptions] = useState(defaultOptions);
-
-  const switchMode = (mode: string) => {
-    console.log(defaultOptions.pomodoro);
-  }
-
-  const handleMode = (event: React.MouseEvent) => {
-    const mode: string = event.currentTarget.id;
-    switchMode(mode);
-  }
+  const { handleMode } = useContext(TimerContext);
 
   return (
     <>
       <button
         type='button'
-        id='pomochoro'
+        id='pomodoro'
         onClick={ (event) => handleMode(event) }
       >
         Pomochoro

@@ -1,16 +1,12 @@
-type timer = {
-  minutes: string;
-  seconds: string;
-}
+import { timer } from "../typescript/types";
 
 function Timer({ minutes, seconds }: timer) {
 
-
   return (
     <>
-      <span>{minutes}</span>
+      <span>{minutes.toString().padStart(2, '0')}</span>
       <span>:</span>
-      <span>{seconds}</span>
+      <span>{seconds.toString().padEnd(2, '0')}</span>
     </>
   )
 }
