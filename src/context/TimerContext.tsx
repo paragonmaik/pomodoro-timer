@@ -16,40 +16,47 @@ const options: TimerOptions = {
   }
 }
 
-const getRemainingTimer = (endTime: number) => {
-  const currentTime = Date.parse(new Date().toString());
-  const timeDiff = +endTime - currentTime;
-  console.log(typeof currentTime);
-  console.log(timeDiff);
-  const total = Number.parseInt((timeDiff / 1000).toString(), 10);
-  const minutes = Number.parseInt(((total / 60) % 60).toString(), 10);
-  const seconds = Number.parseInt((total % 60).toString(), 10);
-  console.log(total, minutes, seconds)
-  return {
-    total,
-    minutes,
-    seconds,
-  }
-}
-
 export function TimerProvider({ children }: TimerContextProviderProps) {
+  // let intervalId: any;
+  const [isStartAvailable, setIsStartAvailable] = useState(true);
   const [defaultOptions] = useState(options);
-  const [interval, setIntervalValue] = useState();
+  const [interval, setIntervalValue] = useState(0);
   const [timerData, setTimerData] = useState(options.timeRemaining as timer);
 
+  const getRemainingTimer = (endTime: number) => {
+    const currentTime = Date.parse(new Date().toString());
+    const timeDiff = +endTime - currentTime;
+
+    const total = Number.parseInt((timeDiff / 1000).toString(), 10);
+    const minutes = Number.parseInt(((total / 60) % 60).toString(), 10);
+    const seconds = Number.parseInt((total % 60).toString(), 10);
+
+    return {
+      total,
+      minutes,
+      seconds,
+    }
+  }
+
   const startTimer = () => {
-    const { total, minutes, seconds } = timerData;
+    const { total } = timerData;
     const endTime = +Date.parse(new Date().toString()) + total * 1000;
-    console.log(endTime, 'teste');
-    setInterval(() => {
+
+    const intervalId = setInterval(() => {
       getRemainingTimer(endTime);
-      setTimerData(getRemainingTimer(endTime));
+      const timerObj = getRemainingTimer(endTime)
 
-      if (total <= 0) {
-        clearInterval(interval)
+      setTimerData(timerObj);
+      if (timerObj.total <= 0) {
+
+        clearInterval(intervalId)
       }
-    }, 1000)
+    }, 1000);
+    setIntervalValue(Number(intervalId));
+  }
 
+  const stopTimer = () => {
+    clearInterval(interval);
   }
 
   const switchMode = (mode: string) => {
@@ -71,10 +78,13 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
     {
       timerData,
       defaultOptions,
+      isStartAvailable,
       setTimerData,
       switchMode,
       handleMode,
       startTimer,
+      stopTimer,
+      setIsStartAvailable,
     }
     }>
     {children}

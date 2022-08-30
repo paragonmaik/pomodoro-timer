@@ -3,10 +3,13 @@ import { ReactNode } from "react";
 export type TimerContextProps = {
   timerData: timer;
   defaultOptions: TimerOptions,
+  isStartAvailable: boolean,
   setTimerData: (timer: timer) => void;
   switchMode: (mode: string) => void;
   handleMode: (event: React.MouseEvent) => void;
   startTimer: () => void;
+  stopTimer: () => void;
+  setIsStartAvailable: (isStartAvailable: boolean) => void;
 }
 
 export type TimerContextProviderProps = {

@@ -5,18 +5,31 @@ import './App.css'
 import { useContext } from 'react';
 
 function App() {
-  const { timerData, setTimerData, startTimer } = useContext(TimerContext);
-  // setTimerData({ total: 1499, minutes: 24, seconds: 59 })
-  console.log(timerData);
+  const { timerData,
+    setTimerData,
+    startTimer,
+    isStartAvailable,
+    setIsStartAvailable,
+    stopTimer,
+  } = useContext(TimerContext);
+
+  const handleStartButton = () => {
+    if (isStartAvailable) {
+      setIsStartAvailable(false);
+      return startTimer();
+    }
+    setIsStartAvailable(true);
+    stopTimer();
+  }
   return (
     <>
       <h1>pomodoro</h1>
       <PomodoroOptions />
       <Timer {...timerData} />
       <button
-        onClick={ startTimer }
+        onClick={ () => handleStartButton() }
         type="button">
-          Start
+          {isStartAvailable ? 'Start' : 'Stop'}
         </button>
     </>
   )
