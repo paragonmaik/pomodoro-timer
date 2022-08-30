@@ -16,9 +16,41 @@ const options: TimerOptions = {
   }
 }
 
+const getRemainingTimer = (endTime: number) => {
+  const currentTime = Date.parse(new Date().toString());
+  const timeDiff = +endTime - currentTime;
+  console.log(typeof currentTime);
+  console.log(timeDiff);
+  const total = Number.parseInt((timeDiff / 1000).toString(), 10);
+  const minutes = Number.parseInt(((total / 60) % 60).toString(), 10);
+  const seconds = Number.parseInt((total % 60).toString(), 10);
+  console.log(total, minutes, seconds)
+  return {
+    total,
+    minutes,
+    seconds,
+  }
+}
+
 export function TimerProvider({ children }: TimerContextProviderProps) {
   const [defaultOptions] = useState(options);
+  const [interval, setIntervalValue] = useState();
   const [timerData, setTimerData] = useState(options.timeRemaining as timer);
+
+  const startTimer = () => {
+    const { total, minutes, seconds } = timerData;
+    const endTime = +Date.parse(new Date().toString()) + total * 1000;
+    console.log(endTime, 'teste');
+    setInterval(() => {
+      getRemainingTimer(endTime);
+      setTimerData(getRemainingTimer(endTime));
+
+      if (total <= 0) {
+        clearInterval(interval)
+      }
+    }, 1000)
+
+  }
 
   const switchMode = (mode: string) => {
     defaultOptions.mode = mode;
@@ -42,6 +74,7 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
       setTimerData,
       switchMode,
       handleMode,
+      startTimer,
     }
     }>
     {children}
