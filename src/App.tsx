@@ -6,7 +6,6 @@ import { useContext } from 'react';
 
 function App() {
   const { timerData,
-    setTimerData,
     startTimer,
     isStartAvailable,
     setIsStartAvailable,

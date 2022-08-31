@@ -7,6 +7,7 @@ const options: TimerOptions = {
   pomodoro: 25,
   shortBreak: 5,
   longBreak: 15,
+  sessions: 0,
   longBreakInterval: 4,
   mode: 'pomodoro',
   timeRemaining: {
@@ -16,12 +17,18 @@ const options: TimerOptions = {
   }
 }
 
+options.timeRemaining = {
+  total: options.pomodoro * 60,
+  minutes: options.pomodoro,
+  seconds: 0,
+}
+
 export function TimerProvider({ children }: TimerContextProviderProps) {
-  // let intervalId: any;
   const [isStartAvailable, setIsStartAvailable] = useState(true);
   const [defaultOptions] = useState(options);
   const [interval, setIntervalValue] = useState(0);
   const [timerData, setTimerData] = useState(options.timeRemaining as timer);
+  const [shouldAutoStart, setShouldAutoStart] = useState(true);
 
   const getRemainingTimer = (endTime: number) => {
     const currentTime = Date.parse(new Date().toString());
@@ -38,9 +45,24 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
     }
   }
 
+  const autoSwitch = (mode: string, sessions: number, breakInterval: number) => {
+    switch (mode) {
+      case 'pomodoro':
+        if (sessions % breakInterval === 0) {
+          switchMode('longBreak');
+        } else {
+          switchMode('shortBreak');
+        }
+        break;
+        default:
+          switchMode('pomodoro');
+    }
+    startTimer();
+  };
+
   const startTimer = () => {
-    const { total } = timerData;
-    const endTime = +Date.parse(new Date().toString()) + total * 1000;
+    const { total } = defaultOptions.timeRemaining;
+    const endTime = +Date.parse(new Date().toString()) + total * 1000
 
     const intervalId = setInterval(() => {
       getRemainingTimer(endTime);
@@ -48,11 +70,13 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
 
       setTimerData(timerObj);
       if (timerObj.total <= 0) {
-
-        clearInterval(intervalId)
+        clearInterval(intervalId);
+        defaultOptions.mode === 'pomodoro' && defaultOptions.sessions++;
+        shouldAutoStart && autoSwitch(defaultOptions.mode, defaultOptions.sessions, defaultOptions.longBreakInterval);
       }
     }, 1000);
     setIntervalValue(Number(intervalId));
+
   }
 
   const stopTimer = () => {
@@ -60,6 +84,7 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
   }
 
   const switchMode = (mode: string) => {
+    console.log('a');
     defaultOptions.mode = mode;
     defaultOptions.timeRemaining = {
       total: Number(defaultOptions[mode as keyof TimerOptions]) * 60,
@@ -72,6 +97,8 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
   const handleMode = (event: React.MouseEvent) => {
     const mode: string = event.currentTarget.id;
     switchMode(mode);
+    stopTimer();
+    setIsStartAvailable(true);
   }
 
   return <TimerContext.Provider value={

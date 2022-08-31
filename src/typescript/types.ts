@@ -16,8 +16,6 @@ export type TimerContextProviderProps = {
   children: ReactNode;
 }
 
-// export type timerKeys = keyof timerOptions;
-
 export type timer = {
   total: number,
   minutes: number,
@@ -28,7 +26,8 @@ export type TimerOptions = {
   pomodoro: number;
   shortBreak: number,
   longBreak: number,
+  sessions: number,
   longBreakInterval: number,
-  mode?: string,
-  timeRemaining?: timer,
+  mode: string,
+  timeRemaining: timer,
 }
