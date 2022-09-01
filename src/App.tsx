@@ -6,7 +6,7 @@ import { useContext } from 'react';
 
 function App() {
   const { timerData,
-    startTimer,
+    handleStartTimer,
     isStartAvailable,
     setIsStartAvailable,
     stopTimer,
@@ -15,7 +15,7 @@ function App() {
   const handleStartButton = () => {
     if (isStartAvailable) {
       setIsStartAvailable(false);
-      return startTimer();
+      return handleStartTimer();
     }
     setIsStartAvailable(true);
     stopTimer();

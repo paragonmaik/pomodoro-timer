@@ -6,7 +6,7 @@ export type TimerContextProps = {
   setTimerData: (timer: timer) => void;
   switchMode: (mode: string) => void;
   handleMode: (event: React.MouseEvent) => void;
-  startTimer: () => void;
+  handleStartTimer: () => void;
   stopTimer: () => void;
   setIsStartAvailable: (isStartAvailable: boolean) => void;
 }
