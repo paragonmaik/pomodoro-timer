@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 
 export type TimerContextProps = {
   timerData: timer;
-  defaultOptions: TimerOptions,
   isStartAvailable: boolean,
   setTimerData: (timer: timer) => void;
   switchMode: (mode: string) => void;
@@ -22,7 +21,7 @@ export type timer = {
   seconds: number,
 }
 
-export type TimerOptions = {
+export type TimerSettings = {
   pomodoro: number;
   shortBreak: number,
   longBreak: number,
