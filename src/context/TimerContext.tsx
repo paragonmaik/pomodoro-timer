@@ -28,7 +28,7 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
   const [defaultOptions] = useState(options);
   const [interval, setIntervalValue] = useState(0);
   const [timerData, setTimerData] = useState(options.timeRemaining as timer);
-  const [shouldAutoStart, setShouldAutoStart] = useState(true);
+  const [shouldAutoStart, setShouldAutoStart] = useState(false);
 
   const getRemainingTimer = (endTime: number) => {
     const currentTime = Date.parse(new Date().toString());
@@ -63,11 +63,11 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
   const startTimer = () => {
     const { total } = defaultOptions.timeRemaining;
     const endTime = +Date.parse(new Date().toString()) + total * 1000
-
+    console.log(defaultOptions.mode, defaultOptions.timeRemaining);
     const intervalId = setInterval(() => {
       getRemainingTimer(endTime);
       const timerObj = getRemainingTimer(endTime)
-
+      console.log(timerObj);
       setTimerData(timerObj);
       if (timerObj.total <= 0) {
         clearInterval(intervalId);
