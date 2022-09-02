@@ -1,5 +1,5 @@
-import { createContext, useState } from 'react';
-import { timer, TimerContextProps, TimerContextProviderProps, TimerSettings } from '../typescript/types';
+import { createContext, useEffect, useState } from 'react';
+import { timer, TimerContextProps, TimerContextProviderProps, TimerSettings, selectModeOptions } from '../typescript/types';
 import { defaultSettings } from '../utils/defaultSettings';
 import { getEndingTimeInMs, getRemainingTimer } from '../utils/helpers';
 
@@ -7,73 +7,89 @@ export const TimerContext = createContext({} as TimerContextProps);
 
 export function TimerProvider({ children }: TimerContextProviderProps) {
   const [isStartAvailable, setIsStartAvailable] = useState(true);
-  const [currentOptions] = useState(defaultSettings);
+  // const [currentOptions] = useState(defaultSettings);
   const [interval, setIntervalValue] = useState(0);
-  const [timerData, setTimerData] = useState(currentOptions.timeRemaining as timer);
+  const [timerData, setTimerData] = useState(defaultSettings);
   const [shouldAutoStart, setShouldAutoStart] = useState(true);
 
+  useEffect(() => {
+    console.log(timerData.mode, timerData.sessions);
+  }, [timerData])
+
   function handleStartTimer () {
-    // const { total } = timerData;
-    const endingTimeInMs = getEndingTimeInMs(timerData.total);
-    // console.log(endingTimeInMs);
+    // setSessions(sessions + 1);
+    // console.log(timerData);
+    const { total } = timerData.timeRemaining;
+    const endingTimeInMs = getEndingTimeInMs(total);
 
     const intervalId = setInterval(() => {
-      const updatedTimer = getRemainingTimer(endingTimeInMs)
-      setTimerData(updatedTimer);
+      const timer = getRemainingTimer(endingTimeInMs);
+      updateTimer(timer);
 
-      if (updatedTimer.total <= 0) {
-        let { mode, sessions, longBreakInterval } = currentOptions;
+      if (timer.total <= 0) {
+        const { mode, longBreakInterval } = timerData;
         clearInterval(intervalId);
-        mode === 'pomodoro' && sessions++;
-        console.log(currentOptions);
-        shouldAutoStart && autoSwitch(mode, sessions, longBreakInterval);
+        if (mode === 'pomodoro') {
+          console.log(timerData.sessions++);
+        }
+        if (shouldAutoStart) autoSwitch(mode, longBreakInterval);
       }
     }, 1000);
     setIntervalValue(Number(intervalId));
   }
 
-  const autoSwitch = (mode: string, sessions: number, breakInterval: number) => {
-    switch (mode) {
-      case 'pomodoro':
+  function autoSwitch(mode: string, breakInterval: number) {
+    const { sessions } = timerData;
+    const selectMode = {
+      pomodoro: () => {
         if (sessions % breakInterval === 0) {
           switchMode('longBreak');
         } else {
           switchMode('shortBreak');
         }
-        break;
-        default:
-          switchMode('pomodoro');
+      },
+      longBreak: () => switchMode('pomodoro'),
+      shortBreak: () => switchMode('pomodoro'),
     }
+    selectMode[mode as keyof selectModeOptions]();
     handleStartTimer();
   };
 
-  const stopTimer = () => {
+  function stopTimer() {
     clearInterval(interval);
   }
 
-  const switchMode = (mode: string) => {
-    console.log('a');
-    currentOptions.mode = mode;
-    const teste = currentOptions.timeRemaining = {
-      total: Number(currentOptions[mode as keyof TimerSettings]) * 60,
-      minutes: Number(currentOptions[mode as keyof TimerSettings]),
+  function switchMode(mode: string) {
+    timerData.mode = mode;
+    const updatedTimer = timerData.timeRemaining = {
+      total: Number(timerData[mode as keyof TimerSettings]) * 60,
+      minutes: Number(timerData[mode as keyof TimerSettings]),
       seconds: 0,
     }
-    console.log(teste);
-    // setTimerData(currentOptions.timeRemaining);
-    updateTimer(teste);
-    console.log(timerData);
+    updateTimer(updatedTimer);
   }
 
-  function updateTimer(updatedTimer: timer) {
-    setTimerData(updatedTimer);
+  function updateTimer(timeRemaining: timer) {
+    const updatedTimerData = timerData;
+    setTimerData({ ...updatedTimerData, timeRemaining  });
   }
 
-  const handleMode = (event: React.MouseEvent) => {
+  function handleMode(event: React.MouseEvent) {
     const mode: string = event.currentTarget.id;
     switchMode(mode);
     stopTimer();
     setIsStartAvailable(true);
+  }
+
+  function updateSessionCounter() {
+    // const oldTimerData = { ...timerData, sessions };
+    // console.log(oldTimerData)
+    // setSessions(sessions + 1);
+    // console.log(sessions);
+    // oldTimerData.sessions++;
+    // console.log('teste', oldTimerData);
+    // setTimerData(oldTimerData);
+    // console.log(sessions);
   }
 
   return <TimerContext.Provider value={

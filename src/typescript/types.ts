@@ -1,9 +1,9 @@
 import { ReactNode } from "react";
 
 export type TimerContextProps = {
-  timerData: timer;
+  timerData: TimerSettings;
   isStartAvailable: boolean,
-  setTimerData: (timer: timer) => void;
+  setTimerData: (timer: TimerSettings) => void;
   switchMode: (mode: string) => void;
   handleMode: (event: React.MouseEvent) => void;
   handleStartTimer: () => void;
@@ -29,4 +29,10 @@ export type TimerSettings = {
   longBreakInterval: number,
   mode: string,
   timeRemaining: timer,
+}
+
+export type selectModeOptions = {
+  longBreak: () => void,
+  shortBreak: () => void,
+  pomodoro: () => void,
 }

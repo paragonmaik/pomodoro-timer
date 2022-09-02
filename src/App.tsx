@@ -5,7 +5,7 @@ import './App.css'
 import { useContext } from 'react';
 
 function App() {
-  const { timerData,
+  const { timerData: { timeRemaining },
     handleStartTimer,
     isStartAvailable,
     setIsStartAvailable,
@@ -24,7 +24,7 @@ function App() {
     <>
       <h1>pomodoro</h1>
       <PomodoroOptions />
-      <Timer {...timerData} />
+      <Timer {...timeRemaining} />
       <button
         onClick={ () => handleStartButton() }
         type="button">
