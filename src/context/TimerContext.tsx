@@ -2,6 +2,8 @@ import { createContext, useEffect, useState } from 'react';
 import { timer, TimerContextProps, TimerContextProviderProps, TimerSettings, selectModeOptions } from '../typescript/types';
 import { defaultSettings } from '../utils/defaultSettings';
 import { getEndingTimeInMs, getRemainingTimer } from '../utils/helpers';
+import buttonAudio from '../sounds/button-sound.mp3';
+import alarmAudio from '../sounds/break.mp3'
 
 export const TimerContext = createContext({} as TimerContextProps);
 
@@ -10,22 +12,29 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
   const [interval, setIntervalValue] = useState(0);
   const [timerData, setTimerData] = useState(defaultSettings);
   const [shouldAutoStart, setShouldAutoStart] = useState(true);
+  const buttonSound = new Audio(buttonAudio);
+  const alarmSound = new Audio(alarmAudio);
 
   useEffect(() => {
-    console.log(timerData.mode, timerData.sessions);
-  }, [timerData])
+    const { minutes, seconds } = timerData.timeRemaining;
+    const { mode } = timerData;
+    const titleText = mode === 'pomodoro' ? 'Focus!' : 'Take a break!';
+    const titleTimer = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    document.title = `${titleTimer} - ${titleText}`;
+  });
 
-  function handleStartTimer () {
-
+  function handleStartTimer() {
     const { total } = timerData.timeRemaining;
     const endingTimeInMs = getEndingTimeInMs(total);
 
+    buttonSound.play();
     const intervalId = setInterval(() => {
       const timer = getRemainingTimer(endingTimeInMs);
       updateTimer(timer);
 
       if (timer.total <= 0) {
         const { mode, longBreakInterval } = timerData;
+        alarmSound.play();
         clearInterval(intervalId);
         if (mode === 'pomodoro') {
           console.log(timerData.sessions++);
