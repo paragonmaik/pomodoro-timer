@@ -7,7 +7,6 @@ export const TimerContext = createContext({} as TimerContextProps);
 
 export function TimerProvider({ children }: TimerContextProviderProps) {
   const [isStartAvailable, setIsStartAvailable] = useState(true);
-  // const [currentOptions] = useState(defaultSettings);
   const [interval, setIntervalValue] = useState(0);
   const [timerData, setTimerData] = useState(defaultSettings);
   const [shouldAutoStart, setShouldAutoStart] = useState(true);
@@ -17,8 +16,7 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
   }, [timerData])
 
   function handleStartTimer () {
-    // setSessions(sessions + 1);
-    // console.log(timerData);
+
     const { total } = timerData.timeRemaining;
     const endingTimeInMs = getEndingTimeInMs(total);
 
@@ -79,17 +77,6 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
     switchMode(mode);
     stopTimer();
     setIsStartAvailable(true);
-  }
-
-  function updateSessionCounter() {
-    // const oldTimerData = { ...timerData, sessions };
-    // console.log(oldTimerData)
-    // setSessions(sessions + 1);
-    // console.log(sessions);
-    // oldTimerData.sessions++;
-    // console.log('teste', oldTimerData);
-    // setTimerData(oldTimerData);
-    // console.log(sessions);
   }
 
   return <TimerContext.Provider value={
