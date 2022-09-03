@@ -12,10 +12,6 @@ export const MainContainer = styled.section`
   flex-direction: column;
   margin: 20px auto;
   padding: 20px 0;
-
-  @media (max-width: 600px) {
-    width: 100vw;
-  };
 `
 
 export const TimerCardContainer = styled.article`
@@ -29,8 +25,6 @@ export const TimerCardContainer = styled.article`
   min-height: 350px;
   justify-content: space-evenly;
   width: 90vw;
-  /* @media (max-width: 600px) {
-  }; */
 `
 
 export const GenericContainer = styled.div`
@@ -44,7 +38,7 @@ export const BarContainer = styled.div`
   width: 100vw;
   display: flex;
   justify-content: center;
-  margin: 0 auto;
+  margin: 20px auto;
 
   progress[value] {
     appearance: none;
@@ -66,4 +60,14 @@ export const BarContainer = styled.div`
 export const CounterContainer = styled.div`
   font-size: 6em;
   color: white;
+`
+
+export const Header = styled.header`
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90vw;
+  max-width: 500px;
+  max-height: 100px;
 `

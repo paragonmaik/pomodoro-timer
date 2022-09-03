@@ -32,3 +32,20 @@ export const StartButton = styled.button`
     transition: color 0.9s ease-in-out 0s;
   }
 `
+
+export const NavButton = styled.button`
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  width: 30%;
+  height: 30px;
+  background-color: rgb(15, 191, 152);
+  font-size: 1em;
+  color: white;
+`
+
+export const ImgLogo = styled.img`
+  border-radius: 100%;
+  width: 60px;
+`
