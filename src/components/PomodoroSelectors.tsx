@@ -1,34 +1,36 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { TimerContext } from '../context/TimerContext';
+import { GenericContainer } from '../styles/Container.Styles';
+import { ModeButton } from '../styles/Elements.Styles';
 
-function PomodoroOptions() {
+function PomodoroSelectors() {
   const { handleMode } = useContext(TimerContext);
 
   return (
-    <>
-      <button
+    <GenericContainer>
+      <ModeButton
         type='button'
         id='pomodoro'
         onClick={ (event) => handleMode(event) }
       >
         Pomochoro
-      </button>
-      <button
+      </ModeButton>
+      <ModeButton
         type='button'
         id='shortBreak'
         onClick={ (event) => handleMode(event) }
       >
         Short Break
-      </button>
-      <button
+      </ModeButton>
+      <ModeButton
         type='button'
         id='longBreak'
         onClick={ (event) => handleMode(event) }
       >
         Long break
-      </button>
-    </>
+      </ModeButton>
+    </GenericContainer>
   )
 }
 
-export default PomodoroOptions;
+export default PomodoroSelectors;

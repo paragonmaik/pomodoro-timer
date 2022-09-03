@@ -1,9 +1,16 @@
-import Timer from './components/Timer';
-import PomodoroOptions from './components/PomodoroOptions';
+import { useContext } from 'react';
 import { TimerContext } from './context/TimerContext';
 import { TimerSettings } from './typescript/types';
-import './App.css'
-import { useContext } from 'react';
+import {
+  AppContainer,
+  TimerCardContainer,
+  GenericContainer,
+  MainContainer,
+  BarContainer } from './styles/Container.Styles';
+import { StartButton } from './styles/Elements.Styles';
+import Timer from './components/Timer';
+import PomodoroSelectors from './components/PomodoroSelectors';
+// import './App.css'
 
 function App() {
   const { timerData,
@@ -22,21 +29,28 @@ function App() {
     stopTimer();
   }
   return (
-    <>
-      <h1>pomodoro</h1>
-      <PomodoroOptions />
-      <progress
-        value={+timerData[timerData.mode as keyof TimerSettings] * 60 - timerData.timeRemaining.total}
-        max={+timerData[timerData.mode as keyof TimerSettings] * 60}
-        />
-      <div></div>
-      <Timer {...timerData.timeRemaining} />
-      <button
-        onClick={ () => handleStartButton() }
-        type="button">
-          {isStartAvailable ? 'Start' : 'Stop'}
-        </button>
-    </>
+    <AppContainer>
+      <MainContainer>
+        <BarContainer>
+          <progress
+            value={+timerData[timerData.mode as keyof TimerSettings] * 60 - timerData.timeRemaining.total}
+            max={+timerData[timerData.mode as keyof TimerSettings] * 60}
+            />
+        </BarContainer>
+      <TimerCardContainer>
+        <PomodoroSelectors />
+        <Timer {...timerData.timeRemaining} />
+        <GenericContainer>
+          <StartButton
+            onClick={ () => handleStartButton() }
+            type="button"
+            >
+              {isStartAvailable ? 'START' : 'STOP'}
+          </StartButton>
+        </GenericContainer>
+      </TimerCardContainer>
+      </MainContainer>
+    </AppContainer>
   )
 }
 

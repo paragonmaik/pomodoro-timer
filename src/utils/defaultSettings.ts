@@ -1,7 +1,7 @@
 import { TimerSettings } from '../typescript/types';
 
 export const defaultSettings: TimerSettings = {
-  pomodoro: 0.1,
+  pomodoro: 25,
   shortBreak: 5,
   longBreak: 15,
   sessions: 0,

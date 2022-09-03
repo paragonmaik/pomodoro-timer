@@ -63,6 +63,7 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
   };
 
   function stopTimer() {
+    buttonSound.play();
     clearInterval(interval);
   }
 
