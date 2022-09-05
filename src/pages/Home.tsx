@@ -1,13 +1,10 @@
-import { useContext } from 'react';
+import { useContext, useState, FormEvent, useEffect } from 'react';
 import { TimerContext } from '../context/TimerContext';
 import { TimerSettings } from '../typescript/types';
-import {
-  AppContainer,
-  TimerCardContainer,
-  GenericContainer,
-  MainContainer,
-  BarContainer } from '../styles/Container.Styles';
-import { StartButton } from '../styles/Elements.Styles';
+import { TimerCardContainer,
+  GenericContainer, MainContainer,
+  BarContainer, TasksContainer, Task } from '../styles/Container.Styles';
+import { StartButton, TodoInput, AddButton } from '../styles/Elements.Styles';
 import Timer from '../components/Timer';
 import NavBar from '../components/NavBar';
 import PomodoroSelectors from '../components/PomodoroSelectors';
@@ -19,6 +16,11 @@ function Home() {
     setIsStartAvailable,
     stopTimer,
   } = useContext(TimerContext);
+  const [todoList, setTodoList] = useState<string[]>([]);
+
+  // useEffect(() => {
+  //   console.log('teste');
+  // }, [todoList]);
 
   const handleStartButton = () => {
     if (isStartAvailable) {
@@ -28,10 +30,25 @@ function Home() {
     setIsStartAvailable(true);
     stopTimer();
   }
+
+  const handleAddTask = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const currentList = todoList;
+    const { task } = e.target as typeof e.target & {
+      task: { value: string }
+    }
+    // console.log(currentList);
+    currentList.push(task.value);
+    // console.log(currentList);
+    setTodoList(currentList);
+  }
+
   return (
-    <AppContainer>
+    <>
       <MainContainer>
+
         <NavBar />
+
         <BarContainer>
           <progress
             value={+timerData[timerData.mode as keyof TimerSettings] * 60 - timerData.timeRemaining.total}
@@ -39,19 +56,45 @@ function Home() {
             />
         </BarContainer>
         <TimerCardContainer>
-        <PomodoroSelectors />
-        <Timer {...timerData.timeRemaining} />
-        <GenericContainer>
-          <StartButton
-            onClick={ () => handleStartButton() }
-            type="button"
+          <PomodoroSelectors />
+          <Timer {...timerData.timeRemaining} />
+            <GenericContainer>
+              <StartButton
+                onClick={ handleStartButton }
+                type="button"
+                >
+                  {isStartAvailable ? 'START' : 'STOP'}
+              </StartButton>
+            </GenericContainer>
+        </TimerCardContainer>
+
+        <TasksContainer>
+          <h2>
+            Tasks
+          </h2>
+          {todoList?.map((task, i) => (
+          <Task key={i}>
+            <p>
+              {task}
+            </p>
+          </Task>
+          ))}
+          <form onSubmit={(e) => handleAddTask(e)}>
+            <TodoInput
+              id="task"
+              type="text"
+              maxLength={20}
+              placeholder="Add your task"
+            />
+            <AddButton
+              type='submit'
             >
-              {isStartAvailable ? 'START' : 'STOP'}
-          </StartButton>
-        </GenericContainer>
-      </TimerCardContainer>
+              +
+            </AddButton>
+          </form>
+        </TasksContainer>
       </MainContainer>
-    </AppContainer>
+    </>
   )
 }
 

@@ -49,3 +49,29 @@ export const ImgLogo = styled.img`
   border-radius: 100%;
   width: 60px;
 `
+
+export const TodoInput = styled.input`
+  font-size: 1.1em;
+  margin: 3px 0;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: white;
+  font-weight: 400;
+  height: 40px;
+  color: rgb(10, 128, 100);
+  max-width: 80%;
+  min-width: 230px;
+`
+
+export const AddButton = styled.button`
+  cursor: pointer;
+  position: absolute;
+  margin: 15px -30px;
+  border: none;
+  border-radius: 50%;
+  background-color: white;
+  font-size: 1.3em;
+  font-weight: 600;
+  color: rgb(10, 128, 100);
+`

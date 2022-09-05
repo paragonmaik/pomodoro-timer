@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const AppContainer = styled.main`
   background-color: rgb(10, 128, 100);
   display: flex;
-  height: 100vh;
+  height: 100%;
   width: 100vw;
 `
 
@@ -70,4 +70,30 @@ export const Header = styled.header`
   width: 90vw;
   max-width: 500px;
   max-height: 100px;
+`
+
+export const TasksContainer = styled.section`
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background-color: blue;
+  align-items: center;
+  width: 80vw;
+  max-width: 500px;
+  min-height: 350px;
+`
+
+export const Task = styled.div`
+  font-size: 1.1em;
+  margin: 3px 0;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: white;
+  font-weight: 400;
+  height: 40px;
+  color: rgb(10, 128, 100);
+  max-width: 80%;
+  min-width: 230px;
+  cursor: grab;
 `

@@ -1,8 +1,11 @@
 import Home from './pages/Home';
+import { AppContainer } from './styles/Container.Styles';
 
 function App() {
   return (
-    <Home />
+    <AppContainer>
+      <Home />
+    </AppContainer>
   )
 }
 
