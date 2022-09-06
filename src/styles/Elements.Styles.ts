@@ -75,3 +75,13 @@ export const AddButton = styled.button`
   font-weight: 600;
   color: rgb(10, 128, 100);
 `
+
+export const RemoveButton = styled.button`
+  cursor: pointer;
+  border: none;
+  border-radius: 50%;
+  background-color: white;
+  font-size: 1.3em;
+  font-weight: 600;
+  color: rgb(10, 128, 100);
+`

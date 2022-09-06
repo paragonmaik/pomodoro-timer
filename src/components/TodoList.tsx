@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import { TasksContainer, Task } from "../styles/Container.Styles"
-import { TodoInput, AddButton } from "../styles/Elements.Styles"
+import { TodoInput, AddButton, RemoveButton } from "../styles/Elements.Styles"
 
 function TodoList() {
   const [todoList, setTodoList] = useState<string[]>([]);
@@ -27,6 +27,11 @@ function TodoList() {
         <p>
           {task}
         </p>
+        <RemoveButton
+          type="button"
+        >
+          ×
+        </RemoveButton>
       </Task>
       ))}
       <form onSubmit={(e) => handleAddTask(e)}>

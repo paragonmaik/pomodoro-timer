@@ -83,6 +83,8 @@ export const TasksContainer = styled.section`
 `
 
 export const Task = styled.div`
+  display: flex;
+  justify-content: space-between;
   font-size: 1.1em;
   margin: 3px 0;
   padding: 5px;
