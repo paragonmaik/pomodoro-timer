@@ -99,3 +99,9 @@ export const Task = styled.div`
   min-width: 230px;
   cursor: grab;
 `
+
+export const FlexRowDiv = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 30px;
+`

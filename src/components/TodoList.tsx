@@ -1,8 +1,9 @@
 import { FormEvent, useState } from 'react';
-import { TasksContainer, Task } from '../styles/Container.Styles'
+import { TasksContainer, Task, FlexRowDiv } from '../styles/Container.Styles'
 import { TodoInput, AddButton, TaskButton } from '../styles/Elements.Styles'
 import { ToDo } from '../typescript/types';
 import taskAudio from '../sounds/task-sound.mp3';
+import trash from '../../public/trash.svg';
 
 function TodoList() {
   const [todoList, setTodoList] = useState<ToDo[]>([]);
@@ -28,7 +29,7 @@ function TodoList() {
     setTodoList([...currentList]);
   }
 
-  const handleEndTask = (id: number) => {
+  const handleFinishTask = (id: number) => {
     todoList.forEach((task) => {
       if (task.id === id) {
         task.value = task.value.split('')
@@ -40,11 +41,23 @@ function TodoList() {
     setTodoList([...currentList]);
   }
 
+  const handleRemoveAllTasks = () => {
+    if (todoList.length > 0) setTodoList([]); 
+  }
+
   return (
     <TasksContainer>
-      <h2>
-        Tasks
-      </h2>
+      <FlexRowDiv>
+        <h2>
+          Tasks
+        </h2>
+        <TaskButton
+            type="button"
+            onClick={ handleRemoveAllTasks }
+          >
+            ×
+          </TaskButton>
+      </FlexRowDiv>
       {todoList?.map(({ value, id }) => (
       <Task key={id}>
         <p>
@@ -53,7 +66,7 @@ function TodoList() {
         <div>
           <TaskButton
             type="button"
-            onClick={ () => handleEndTask(id) }
+            onClick={ () => handleFinishTask(id) }
           >
             ☑
           </TaskButton>
