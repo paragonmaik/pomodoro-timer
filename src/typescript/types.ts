@@ -12,7 +12,7 @@ export type TimerContextProps = {
 }
 
 export type TimerContextProviderProps = {
-  children: ReactNode;
+  children: ReactNode,
 }
 
 export type timer = {
@@ -22,7 +22,7 @@ export type timer = {
 }
 
 export type TimerSettings = {
-  pomodoro: number;
+  pomodoro: number,
   shortBreak: number,
   longBreak: number,
   sessions: number,
@@ -35,4 +35,9 @@ export type selectModeOptions = {
   longBreak: () => void,
   shortBreak: () => void,
   pomodoro: () => void,
+}
+
+export interface ToDo {
+  value: string,
+  id: number,
 }

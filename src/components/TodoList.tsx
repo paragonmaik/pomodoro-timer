@@ -1,9 +1,10 @@
 import { FormEvent, useState } from "react";
 import { TasksContainer, Task } from "../styles/Container.Styles"
 import { TodoInput, AddButton, RemoveButton } from "../styles/Elements.Styles"
+import { ToDo } from "../typescript/types";
 
 function TodoList() {
-  const [todoList, setTodoList] = useState<string[]>([]);
+  const [todoList, setTodoList] = useState<ToDo[]>([]);
 
   const handleAddTask = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -12,9 +13,15 @@ function TodoList() {
     }
     const currentList = todoList;
     if (value.length > 0) {
-      currentList.push(value);
+      currentList.push({ value, id: todoList.length + 1 });
       setTodoList([...currentList]);
     }
+    e.currentTarget.reset()
+  }
+  
+  const handleRemoveTask = (id: number) => {
+    const currentList = todoList.filter((task) => task.id !== id);
+    setTodoList([...currentList]);
   }
 
   return (
@@ -22,13 +29,20 @@ function TodoList() {
       <h2>
         Tasks
       </h2>
-      {todoList?.map((task, i) => (
-      <Task key={i}>
+      {todoList?.map(({ value, id }) => (
+      <Task key={id}>
         <p>
-          {task}
+          {value}
         </p>
+        {/* <RemoveButton
+          type="button"
+          onClick={ () => handleRemoveTask(value, id) }
+        >
+          ☑
+        </RemoveButton> */}
         <RemoveButton
           type="button"
+          onClick={ () => handleRemoveTask(id) }
         >
           ×
         </RemoveButton>
