@@ -76,7 +76,6 @@ export const TasksContainer = styled.section`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  background-color: blue;
   align-items: center;
   width: 80vw;
   max-width: 500px;
