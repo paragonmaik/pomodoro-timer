@@ -62,7 +62,7 @@ export const CounterContainer = styled.div`
   color: white;
 `
 
-export const Header = styled.header`
+export const Header = styled.nav`
   margin: 0 auto;
   display: flex;
   justify-content: space-between;

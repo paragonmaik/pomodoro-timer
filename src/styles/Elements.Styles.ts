@@ -76,7 +76,7 @@ export const AddButton = styled.button`
   color: rgb(10, 128, 100);
 `
 
-export const RemoveButton = styled.button`
+export const TaskButton = styled.button`
   cursor: pointer;
   border: none;
   border-radius: 50%;
