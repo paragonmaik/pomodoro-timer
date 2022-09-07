@@ -16,12 +16,11 @@
 }
 
 html {
-  /* overflow-y: scroll; */
+  /* overflow-y: ; */
   overflow-x: hidden;
 }
 
 body {
-  background-color: blue;
   margin: 0;
   display: flex;
   min-width: 320px;

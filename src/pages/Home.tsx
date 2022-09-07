@@ -9,6 +9,7 @@ import Timer from '../components/Timer';
 import NavBar from '../components/NavBar';
 import PomodoroSelectors from '../components/PomodoroSelectors';
 import TodoList from '../components/TodoList';
+import TimerSettingsModal from '../components/TimerSettingsModal';
 
 function Home() {
   const { timerData,
@@ -16,6 +17,7 @@ function Home() {
     isStartAvailable,
     setIsStartAvailable,
     stopTimer,
+    isOpen,
   } = useContext(TimerContext);
 
   const handleStartButton = () => {
@@ -50,6 +52,7 @@ function Home() {
             </GenericContainer>
         </TimerCardContainer>
         <TodoList />
+        {isOpen && <TimerSettingsModal />}
       </MainContainer>
     </>
   )

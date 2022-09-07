@@ -1,14 +1,16 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 export type TimerContextProps = {
-  timerData: TimerSettings;
+  timerData: TimerSettings,
   isStartAvailable: boolean,
-  setTimerData: (timer: TimerSettings) => void;
-  switchMode: (mode: string) => void;
-  handleMode: (event: React.MouseEvent) => void;
-  handleStartTimer: () => void;
-  stopTimer: () => void;
-  setIsStartAvailable: (isStartAvailable: boolean) => void;
+  isOpen: boolean,
+  setIsOpen: (open: boolean) => void,
+  setTimerData: (timer: TimerSettings) => void,
+  switchMode: (mode: string) => void,
+  handleMode: (event: React.MouseEvent) => void,
+  handleStartTimer: () => void,
+  stopTimer: () => void,
+  setIsStartAvailable: (isStartAvailable: boolean) => void,
 }
 
 export type TimerContextProviderProps = {

@@ -60,8 +60,6 @@ export const TodoInput = styled.input`
   font-weight: 400;
   height: 40px;
   color: rgb(10, 128, 100);
-  max-width: 80%;
-  min-width: 230px;
 `
 
 export const AddButton = styled.button`
@@ -85,3 +83,61 @@ export const TaskButton = styled.button`
   font-weight: 600;
   color: rgb(10, 128, 100);
 `
+
+export const SettingInput = styled.input`
+  font-size: 1.1em;
+  padding: 10px;
+  border: none;
+  border-bottom: 2px solid black;
+  background-color: white;
+  font-weight: 400;
+  height: 20px;
+  color: rgb(10, 128, 100);
+  max-width: 100%;
+`
+
+export const CheckBoxWrapper = styled.div`
+  position: relative;
+  margin-left: 20px;
+`;
+
+export const CheckBoxLabel = styled.label`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 42px;
+  height: 26px;
+  border-radius: 15px;
+  background: #bebebe;
+  cursor: pointer;
+  &::after {
+    content: "";
+    display: block;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    margin: 3px;
+    background: #ffffff;
+    box-shadow: 1px 3px 3px 1px rgba(0, 0, 0, 0.2);
+    transition: 0.2s;
+  }
+`;
+export const Checkbox = styled.input`
+  opacity: 0;
+  z-index: 1;
+  border-radius: 15px;
+  width: 42px;
+  height: 26px;
+  &:checked + ${CheckBoxLabel} {
+    background: rgb(15, 191, 152);
+    &::after {
+      content: "";
+      display: block;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      margin-left: 21px;
+      transition: 0.2s;
+    }
+  }
+`;

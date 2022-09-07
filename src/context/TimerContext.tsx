@@ -12,6 +12,7 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
   const [interval, setIntervalValue] = useState(0);
   const [timerData, setTimerData] = useState(defaultSettings);
   const [shouldAutoStart, setShouldAutoStart] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const buttonSound = new Audio(buttonAudio);
   const alarmSound = new Audio(alarmAudio);
 
@@ -93,6 +94,8 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
     {
       timerData,
       isStartAvailable,
+      isOpen,
+      setIsOpen,
       setTimerData,
       switchMode,
       handleMode,

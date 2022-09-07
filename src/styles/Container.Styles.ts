@@ -28,7 +28,7 @@ export const TimerCardContainer = styled.article`
 `
 
 export const GenericContainer = styled.div`
-  margin: 0 auto;
+  margin: 15px auto;
   display: flex;
   justify-content: center;
   width: 100%;
@@ -96,12 +96,60 @@ export const Task = styled.div`
   height: 40px;
   color: rgb(10, 128, 100);
   max-width: 80%;
-  min-width: 230px;
+  min-width: 220px;
   cursor: grab;
 `
 
 export const FlexRowDiv = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 30px;
+`
+
+export const TimerSettingsContainer = styled.section`
+  background-color: white;
+  color: rgb(33, 32, 32);
+  padding: 20px 20px;
+  border-radius: 5%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  justify-content: space-between;
+  width: 80vw;
+  max-height: 400px;
+  @media (min-width: 600px) {
+    max-width: 300px;
+  }
+`
+
+export const TimerInputContainer = styled.div`
+  color: rgb(10, 128, 100);
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+`
+
+export const LabelContainer = styled.div`
+  width: 25%;
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 40%;
+`
+
+export const ModalContainer = styled.div`
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.7);
+  top: 0;
+  left: 0;
 `
