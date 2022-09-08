@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { StyledProps } from '../typescript/types';
 
 export const ModeButton = styled.button`
   cursor: pointer;

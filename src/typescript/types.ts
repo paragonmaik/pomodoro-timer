@@ -43,3 +43,8 @@ export interface ToDo {
   value: string,
   id: number,
 }
+
+export interface StyledProps {
+  textDec?: string,
+  props?: boolean,
+}

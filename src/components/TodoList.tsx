@@ -1,12 +1,13 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useRef } from 'react';
 import { TasksContainer, Task, FlexRowDiv } from '../styles/Container.Styles'
 import { TodoInput, AddButton, TaskButton } from '../styles/Elements.Styles'
 import { ToDo } from '../typescript/types';
 import taskAudio from '../sounds/task-sound.mp3';
-import trash from '../../public/trash.svg';
 
 function TodoList() {
   const [todoList, setTodoList] = useState<ToDo[]>([]);
+  const [taskFinished, setTaskFinished] = useState(false);
+  const paragraphRef = useRef<HTMLParagraphElement>(null);
   const taskSound = new Audio(taskAudio);
 
   const handleAddTask = (e: FormEvent<HTMLFormElement>) => {
@@ -97,3 +98,5 @@ function TodoList() {
 };
 
 export default TodoList
+
+// ☑
