@@ -1,4 +1,5 @@
 import { FormEvent, useState, useRef } from 'react';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { TasksContainer, Task, FlexRowDiv } from '../styles/Container.Styles'
 import { TodoInput, AddButton, TaskButton } from '../styles/Elements.Styles'
 import { ToDo } from '../typescript/types';
@@ -8,6 +9,7 @@ function TodoList() {
   const [todoList, setTodoList] = useState<ToDo[]>([]);
   const [taskFinished, setTaskFinished] = useState(false);
   const paragraphRef = useRef<HTMLParagraphElement>(null);
+  const [draggableTasks, updateDraggableTasks] = useState(todoList);
   const taskSound = new Audio(taskAudio);
 
   const handleAddTask = (e: FormEvent<HTMLFormElement>) => {
@@ -21,13 +23,18 @@ function TodoList() {
       taskSound.play();
       currentList.push({ value, id: todoList.length + 1 });
       setTodoList([...currentList]);
+      updateDraggableTasks([...currentList]);
     }
     e.currentTarget.reset();
+    console.log(currentList);
+    console.log(todoList);
+    console.log(draggableTasks);
   }
   
   const handleRemoveTask = (id: number) => {
     const currentList = todoList.filter((task) => task.id !== id);
     setTodoList([...currentList]);
+    updateDraggableTasks([...currentList]);
   }
 
   const handleFinishTask = (id: number) => {
@@ -43,7 +50,18 @@ function TodoList() {
   }
 
   const handleRemoveAllTasks = () => {
-    if (todoList.length > 0) setTodoList([]); 
+    if (todoList.length > 0) setTodoList([]);
+  }
+
+  const handleDragEnd = (result: any) => {
+    console.log(result);
+    if (!result.destination) return;
+    const items = Array.from(draggableTasks);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    console.log(items);
+    updateDraggableTasks(items);
   }
 
   return (
@@ -59,27 +77,40 @@ function TodoList() {
             ×
           </TaskButton>
       </FlexRowDiv>
-      {todoList?.map(({ value, id }) => (
-      <Task key={id}>
-        <p>
-          {value}
-        </p>
-        <div>
-          <TaskButton
-            type="button"
-            onClick={ () => handleFinishTask(id) }
-          >
-            ☑
-          </TaskButton>
-          <TaskButton
-            type="button"
-            onClick={ () => handleRemoveTask(id) }
-          >
-            ×
-          </TaskButton>
-        </div>
-      </Task>
-      ))}
+      <DragDropContext onDragEnd={ handleDragEnd }>
+        <Droppable droppableId='tasks'>
+          {(provided) => (
+            <div {...provided.droppableProps} ref={provided.innerRef} >
+              {draggableTasks?.map(({ value, id }, i) => (
+                <Draggable key={id} draggableId={id.toString()} index={i}>
+                  {(provided) => (
+                    <Task {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} >
+                      <p>
+                        {value}
+                      </p>
+                      <div>
+                        <TaskButton
+                          type="button"
+                          onClick={ () => handleFinishTask(id) }
+                        >
+                          ☑
+                        </TaskButton>
+                        <TaskButton
+                          type="button"
+                          onClick={ () => handleRemoveTask(id) }
+                        >
+                          ×
+                        </TaskButton>
+                      </div>
+                    </Task>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
       <form onSubmit={(e) => handleAddTask(e)}>
         <TodoInput
           id="task"
