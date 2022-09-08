@@ -97,7 +97,6 @@ export const Task = styled.div`
   color: rgb(10, 128, 100);
   max-width: 80%;
   min-width: 220px;
-  cursor: grab;
 `
 
 export const FlexRowDiv = styled.div`
