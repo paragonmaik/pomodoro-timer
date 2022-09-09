@@ -40,8 +40,8 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
         if (mode === 'pomodoro') {
           console.log(timerData.sessions++);
         }
-        if (shouldAutoStart) return autoSwitch(mode, longBreakInterval);
-        stopTimer();
+        setIsStartAvailable(true);
+        autoSwitch(mode, longBreakInterval);
         // invocar funçao que para o timer, caso shouldStart esteja setado com falso
         // chamar a funçao que gerencia mudança de modo
         // na função que gerencia mudança de modo, verificar se a opção de autostart foi selecionada
@@ -64,7 +64,7 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
       shortBreak: () => switchMode('pomodoro'),
     }
     selectMode[mode as keyof selectModeOptions]();
-    handleStartTimer();
+    if (shouldAutoStart) handleStartTimer();
   };
 
   function stopTimer() {
