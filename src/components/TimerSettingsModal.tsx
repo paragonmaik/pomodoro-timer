@@ -2,7 +2,7 @@ import { useContext, ChangeEvent } from 'react';
 import { TimerContext } from '../context/TimerContext';
 import { Checkbox, SettingInput, CheckBoxLabel, CheckBoxWrapper, TaskButton } from '../styles/Elements.Styles';
 import { defaultSettings } from '../utils/defaultSettings';
-import { selectModeOptions } from '../typescript/types';
+import { selectModeOptions, TimerSettings } from '../typescript/types';
 import { TimerSettingsContainer,
   FlexRowDiv,
   TimerInputContainer,
@@ -12,13 +12,17 @@ import { TimerSettingsContainer,
 } from '../styles/Container.Styles';
 
 function TimerSettingsModal() {
-  const { setIsOpen, shouldAutoStart, setShouldAutoStart } = useContext(TimerContext);
+  const { setIsOpen, shouldAutoStart, setShouldAutoStart, setTimerData, updateTimer } = useContext(TimerContext);
   const { pomodoro, shortBreak, longBreak } = defaultSettings;
 
   const handleTimerChange = (event: ChangeEvent<HTMLInputElement>) => {
     const mode = event.target.id;
-    defaultSettings[mode as keyof selectModeOptions] = +event.currentTarget.value
-    console.log(typeof event.currentTarget.value, defaultSettings);
+    const updatedTimer = defaultSettings;
+    updatedTimer.mode = mode;
+    updatedTimer[mode as keyof selectModeOptions] = +event.currentTarget.value;
+    updatedTimer.timeRemaining.total = Number(updatedTimer[mode as keyof TimerSettings]) * 60;
+    updatedTimer.timeRemaining.minutes = Number(updatedTimer[mode as keyof TimerSettings]);
+    setTimerData({...updatedTimer});
   }
 
   const handleAutoStart = (event: ChangeEvent<HTMLInputElement>) => {

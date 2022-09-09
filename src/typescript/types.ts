@@ -13,6 +13,7 @@ export type TimerContextProps = {
   stopTimer: () => void,
   setIsStartAvailable: (isStartAvailable: boolean) => void,
   setShouldAutoStart: (shouldAutoStart: boolean) => void,
+  updateTimer: (updatedTimer: timer) => void,
 }
 
 export type TimerContextProviderProps = {

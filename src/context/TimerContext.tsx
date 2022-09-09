@@ -27,12 +27,12 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
   function handleStartTimer() {
     const { total } = timerData.timeRemaining;
     const endingTimeInMs = getEndingTimeInMs(total);
-
+    
     buttonSound.play();
     const intervalId = setInterval(() => {
       const timer = getRemainingTimer(endingTimeInMs);
       updateTimer(timer);
-
+      
       if (timer.total <= 0) {
         const { mode, longBreakInterval } = timerData;
         alarmSound.play();
@@ -70,7 +70,6 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
   }
 
   function switchMode(mode: string) {
-    timerData.mode = mode;
     const updatedTimer = timerData.timeRemaining = {
       total: Number(timerData[mode as keyof TimerSettings]) * 60,
       minutes: Number(timerData[mode as keyof TimerSettings]),
@@ -89,7 +88,6 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
     const mode: string = event.currentTarget.id;
     switchMode(mode);
     stopTimer();
-    // setIsStartAvailable(true);
   }
 
   return <TimerContext.Provider value={
@@ -106,6 +104,7 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
       stopTimer,
       setIsStartAvailable,
       setShouldAutoStart,
+      updateTimer,
     }
     }>
     {children}
