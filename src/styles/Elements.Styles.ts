@@ -44,6 +44,11 @@ export const NavButton = styled.button`
   background-color: rgb(15, 191, 152);
   font-size: 1em;
   color: white;
+  &:disabled {
+    color: rgb(195, 195, 195);
+    border: 1px solid;
+    background-color: rgb(10, 128, 100);
+  }
 `
 
 export const ImgLogo = styled.img`

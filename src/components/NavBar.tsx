@@ -5,16 +5,17 @@ import { useContext } from 'react';
 import { TimerContext } from '../context/TimerContext';
 
 function NavBar() {
-  const { setIsOpen } = useContext(TimerContext);
+  const { setIsOpen, isStartAvailable } = useContext(TimerContext);
 
   return (
     <Header>
       <ImgLogo src={logo} alt="logo" />
       <NavButton
+        disabled={!isStartAvailable}
         type="button"
         onClick={() => setIsOpen(true) }
       >
-        settings
+        Settings
       </NavButton>
     </Header>
   )
