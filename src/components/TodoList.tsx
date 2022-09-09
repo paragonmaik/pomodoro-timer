@@ -23,8 +23,6 @@ function TodoList() {
       updateDraggableTasks([...currentList]);
     }
     e.currentTarget.reset();
-
-    console.log(todoTasks);
   }
   
   const handleRemoveTask = (id: number) => {

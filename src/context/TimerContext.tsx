@@ -70,6 +70,7 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
   }
 
   function switchMode(mode: string) {
+    timerData.mode = mode;
     const updatedTimer = timerData.timeRemaining = {
       total: Number(timerData[mode as keyof TimerSettings]) * 60,
       minutes: Number(timerData[mode as keyof TimerSettings]),

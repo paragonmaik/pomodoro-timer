@@ -28,7 +28,7 @@ function Home() {
     setIsStartAvailable(true);
     stopTimer();
   }
-
+  
   return (
     <>
       <MainContainer>
@@ -37,7 +37,7 @@ function Home() {
           <progress
             value={+timerData[timerData.mode as keyof TimerSettings] * 60 - timerData.timeRemaining.total}
             max={+timerData[timerData.mode as keyof TimerSettings] * 60}
-            />
+          />
         </BarContainer>
         <TimerCardContainer>
           <PomodoroSelectors />
