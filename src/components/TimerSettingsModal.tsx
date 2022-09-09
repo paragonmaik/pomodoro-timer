@@ -22,8 +22,7 @@ function TimerSettingsModal() {
   }
 
   const handleAutoStart = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.checked);
-    setShouldAutoStart(!shouldAutoStart);
+    setShouldAutoStart(event.target.checked);
   }
 
   return (

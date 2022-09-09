@@ -38,13 +38,10 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
         alarmSound.play();
         clearInterval(intervalId);
         if (mode === 'pomodoro') {
-          console.log(timerData.sessions++);
+          timerData.sessions++;
         }
-        setIsStartAvailable(true);
+
         autoSwitch(mode, longBreakInterval);
-        // invocar funçao que para o timer, caso shouldStart esteja setado com falso
-        // chamar a funçao que gerencia mudança de modo
-        // na função que gerencia mudança de modo, verificar se a opção de autostart foi selecionada
       }
     }, 1000);
     setIntervalValue(Number(intervalId));
@@ -79,6 +76,7 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
       minutes: Number(timerData[mode as keyof TimerSettings]),
       seconds: 0,
     }
+    setIsStartAvailable(true);
     updateTimer(updatedTimer);
   }
 
@@ -91,7 +89,7 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
     const mode: string = event.currentTarget.id;
     switchMode(mode);
     stopTimer();
-    setIsStartAvailable(true);
+    // setIsStartAvailable(true);
   }
 
   return <TimerContext.Provider value={
