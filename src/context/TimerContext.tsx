@@ -11,7 +11,7 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
   const [isStartAvailable, setIsStartAvailable] = useState(true);
   const [interval, setIntervalValue] = useState(0);
   const [timerData, setTimerData] = useState(defaultSettings);
-  const [shouldAutoStart, setShouldAutoStart] = useState(true);
+  const [shouldAutoStart, setShouldAutoStart] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const buttonSound = new Audio(buttonAudio);
   const alarmSound = new Audio(alarmAudio);
@@ -40,7 +40,11 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
         if (mode === 'pomodoro') {
           console.log(timerData.sessions++);
         }
-        if (shouldAutoStart) autoSwitch(mode, longBreakInterval);
+        if (shouldAutoStart) return autoSwitch(mode, longBreakInterval);
+        stopTimer();
+        // invocar funçao que para o timer, caso shouldStart esteja setado com falso
+        // chamar a funçao que gerencia mudança de modo
+        // na função que gerencia mudança de modo, verificar se a opção de autostart foi selecionada
       }
     }, 1000);
     setIntervalValue(Number(intervalId));
@@ -95,6 +99,7 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
       timerData,
       isStartAvailable,
       isOpen,
+      shouldAutoStart,
       setIsOpen,
       setTimerData,
       switchMode,
@@ -102,6 +107,7 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
       handleStartTimer,
       stopTimer,
       setIsStartAvailable,
+      setShouldAutoStart,
     }
     }>
     {children}

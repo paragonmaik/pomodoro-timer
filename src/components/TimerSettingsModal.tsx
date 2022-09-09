@@ -1,3 +1,8 @@
+import { useContext, ChangeEvent } from 'react';
+import { TimerContext } from '../context/TimerContext';
+import { Checkbox, SettingInput, CheckBoxLabel, CheckBoxWrapper, TaskButton } from '../styles/Elements.Styles';
+import { defaultSettings } from '../utils/defaultSettings';
+import { selectModeOptions } from '../typescript/types';
 import { TimerSettingsContainer,
   FlexRowDiv,
   TimerInputContainer,
@@ -5,12 +10,22 @@ import { TimerSettingsContainer,
   GenericContainer,
   ModalContainer,
 } from '../styles/Container.Styles';
-import { Checkbox, SettingInput, CheckBoxLabel, CheckBoxWrapper, TaskButton } from '../styles/Elements.Styles';
-import { TimerContext } from '../context/TimerContext';
-import { useContext } from 'react';
 
 function TimerSettingsModal() {
-  const { setIsOpen } = useContext(TimerContext);
+  const { setIsOpen, shouldAutoStart, setShouldAutoStart } = useContext(TimerContext);
+  const { pomodoro, shortBreak, longBreak } = defaultSettings;
+
+  const handleTimerChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const mode = event.target.id;
+    defaultSettings[mode as keyof selectModeOptions] = +event.currentTarget.value
+    console.log(typeof event.currentTarget.value, defaultSettings);
+  }
+
+  const handleAutoStart = (event: ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.checked);
+    setShouldAutoStart(!shouldAutoStart);
+  }
+
   return (
     <ModalContainer>
       <TimerSettingsContainer>
@@ -28,19 +43,40 @@ function TimerSettingsModal() {
             <label htmlFor="pomodoro">
               Pomochoro
             </label>
-            <SettingInput min="1" type="number" name="pomodoro" id="pomodoro" />
+            <SettingInput
+              defaultValue={pomodoro}
+              min="1"
+              type="number"
+              name="pomodoro"
+              id="pomodoro"
+              onChange={ (event) => handleTimerChange(event) }
+            />
           </LabelContainer>
           <LabelContainer>
             <label htmlFor="shortBreak">
               Short Break
             </label>
-            <SettingInput min="1" type="number" name="shortBreak" id="shortBreak" />
+            <SettingInput
+              defaultValue={shortBreak}
+              min="1"
+              type="number"
+              name="shortBreak"
+              id="shortBreak"
+              onChange={ (event) => handleTimerChange(event) }
+            />
           </LabelContainer>
           <LabelContainer>
             <label htmlFor="longBreak">
               Long Break
             </label>
-            <SettingInput min="1" type="number" name="longBreak" id="longBreak" />
+            <SettingInput
+              defaultValue={longBreak}
+              min="1"
+              type="number"
+              name="longBreak"
+              id="longBreak"
+              onChange={ (event) => handleTimerChange(event) }
+            />
           </LabelContainer>
         </TimerInputContainer>
         <GenericContainer>
@@ -48,7 +84,12 @@ function TimerSettingsModal() {
             Auto Start
           </span>
           <CheckBoxWrapper>
-            <Checkbox id="checkbox" type="checkbox" />
+            <Checkbox
+              checked={shouldAutoStart}
+              onChange={ (event) => handleAutoStart(event) }
+              id="checkbox"
+              type="checkbox"
+            />
             <CheckBoxLabel htmlFor="checkbox" />
           </CheckBoxWrapper>
         </GenericContainer>

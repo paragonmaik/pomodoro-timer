@@ -4,6 +4,7 @@ export type TimerContextProps = {
   timerData: TimerSettings,
   isStartAvailable: boolean,
   isOpen: boolean,
+  shouldAutoStart: boolean,
   setIsOpen: (open: boolean) => void,
   setTimerData: (timer: TimerSettings) => void,
   switchMode: (mode: string) => void,
@@ -11,6 +12,7 @@ export type TimerContextProps = {
   handleStartTimer: () => void,
   stopTimer: () => void,
   setIsStartAvailable: (isStartAvailable: boolean) => void,
+  setShouldAutoStart: (shouldAutoStart: boolean) => void,
 }
 
 export type TimerContextProviderProps = {

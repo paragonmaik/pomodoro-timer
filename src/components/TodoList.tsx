@@ -48,13 +48,11 @@ function TodoList() {
   }
 
   const handleDragEnd = (result: DropResult) => {
-    console.log(result);
     if (!result.destination) return;
     const items = Array.from(todoTasks);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
 
-    console.log(items);
     updateDraggableTasks(items);
   }
 
