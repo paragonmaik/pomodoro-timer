@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { StyledProps } from '../typescript/types';
+import { Props } from '../typescript/types';
 
 export const ModeButton = styled.button`
   cursor: pointer;
@@ -142,3 +142,7 @@ export const Checkbox = styled.input`
     }
   }
 `;
+
+export const TaskParagraph = styled.p<Props>`
+  text-decoration: ${(props) => props.textDec ? 'line-through' : 'none'};
+`

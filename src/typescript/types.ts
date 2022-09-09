@@ -42,12 +42,12 @@ export type selectModeOptions = {
   pomodoro: () => void,
 }
 
-export interface ToDo {
+export interface Todo {
   value: string,
   id: number,
+  finished: boolean,
 }
 
-export interface StyledProps {
-  textDec?: string,
-  props?: boolean,
+export interface Props {
+  textDec?: boolean,
 }

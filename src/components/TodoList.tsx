@@ -1,12 +1,12 @@
 import { FormEvent, useState } from 'react';
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 import { TasksContainer, Task, FlexRowDiv } from '../styles/Container.Styles'
-import { TodoInput, AddButton, TaskButton } from '../styles/Elements.Styles'
-import { ToDo } from '../typescript/types';
+import { TodoInput, AddButton, TaskButton, TaskParagraph } from '../styles/Elements.Styles'
+import { Todo } from '../typescript/types';
 import taskAudio from '../sounds/task-sound.mp3';
 
 function TodoList() {
-  const [todoTasks, updateDraggableTasks] = useState<ToDo[]>([]);
+  const [todoTasks, updateDraggableTasks] = useState<Todo[]>([]);
   const taskSound = new Audio(taskAudio);
 
   const handleAddTask = (e: FormEvent<HTMLFormElement>) => {
@@ -18,11 +18,13 @@ function TodoList() {
     const currentList = todoTasks;
     if (value.length > 0) {
       taskSound.play();
-      currentList.push({ value, id: todoTasks.length + 1 });
+      currentList.push({ value, id: todoTasks.length + 1, finished: false });
 
       updateDraggableTasks([...currentList]);
     }
     e.currentTarget.reset();
+
+    console.log(todoTasks);
   }
   
   const handleRemoveTask = (id: number) => {
@@ -34,9 +36,8 @@ function TodoList() {
   const handleFinishTask = (id: number) => {
     todoTasks.forEach((task) => {
       if (task.id === id) {
-        task.value = task.value.split('')
-          .map((char) => char + '\u0336').join('');
-        return task.value;
+        task.finished = !task.finished;
+        return task.finished;
       }
     });
     const currentList = todoTasks;
@@ -73,13 +74,15 @@ function TodoList() {
         <Droppable droppableId='tasks'>
           {(provided) => (
             <div {...provided.droppableProps} ref={provided.innerRef} >
-              {todoTasks?.map(({ value, id }, i) => (
+              {todoTasks?.map(({ value, id, finished }, i) => (
                 <Draggable key={id} draggableId={id.toString()} index={i}>
                   {(provided) => (
                     <Task {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} >
-                      <p>
+                      <TaskParagraph
+                        textDec={finished}
+                      >
                         {value}
-                      </p>
+                      </TaskParagraph>
                       <div>
                         <TaskButton
                           type="button"

@@ -12,7 +12,7 @@ import { TimerSettingsContainer,
 } from '../styles/Container.Styles';
 
 function TimerSettingsModal() {
-  const { setIsOpen, shouldAutoStart, setShouldAutoStart, setTimerData, updateTimer } = useContext(TimerContext);
+  const { setIsOpen, shouldAutoStart, setShouldAutoStart, setTimerData } = useContext(TimerContext);
   const { pomodoro, shortBreak, longBreak } = defaultSettings;
 
   const handleTimerChange = (event: ChangeEvent<HTMLInputElement>) => {
