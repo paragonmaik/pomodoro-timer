@@ -45,6 +45,7 @@ export const NavButton = styled.button<Props>`
   font-size: 1em;
   color: white;
   &:disabled {
+    cursor: default;
     color: rgb(195, 195, 195);
     border: 1px solid;
     background-color: ${(props) => props.darkMode ? 'rgb(33, 33, 45)' : 'rgb(10, 128, 100)'};

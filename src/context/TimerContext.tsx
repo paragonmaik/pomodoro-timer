@@ -77,7 +77,7 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
       minutes: Number(timerData[mode as keyof TimerSettings]),
       seconds: 0,
     }
-    setIsStartAvailable(true);
+    shouldAutoStart || setIsStartAvailable(true);
     updateTimer(updatedTimer);
   }
 
