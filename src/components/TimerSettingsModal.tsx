@@ -19,7 +19,7 @@ function TimerSettingsModal() {
     const mode = event.target.id;
     const updatedTimer = defaultSettings;
     updatedTimer.mode = mode;
-    updatedTimer[mode as keyof selectModeOptions] = +event.currentTarget.value;
+    updatedTimer[mode as keyof selectModeOptions] = Math.abs(+event.currentTarget.value);
     updatedTimer.timeRemaining.total = Number(updatedTimer[mode as keyof TimerSettings]) * 60;
     updatedTimer.timeRemaining.minutes = Number(updatedTimer[mode as keyof TimerSettings]);
     setTimerData({...updatedTimer});
