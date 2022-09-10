@@ -17,13 +17,15 @@ function TimerSettingsModal() {
 
   const handleTimerChange = (event: ChangeEvent<HTMLInputElement>) => {
     const mode = event.target.id;
+    const total = Math.abs(+event.currentTarget.value);
     const updatedTimer = defaultSettings;
     updatedTimer.mode = mode;
-    updatedTimer[mode as keyof selectModeOptions] = Math.abs(+event.currentTarget.value);
+    updatedTimer[mode as keyof selectModeOptions] = total > 60 ? 60 : total;
     updatedTimer.timeRemaining.total = Number(updatedTimer[mode as keyof TimerSettings]) * 60;
     updatedTimer.timeRemaining.minutes = Number(updatedTimer[mode as keyof TimerSettings]);
     setTimerData({...updatedTimer});
   }
+  
 
   const handleAutoStart = (event: ChangeEvent<HTMLInputElement>) => {
     setShouldAutoStart(event.target.checked);
@@ -49,6 +51,7 @@ function TimerSettingsModal() {
             <SettingInput
               defaultValue={pomodoro}
               min="1"
+              max="60"
               type="number"
               name="pomodoro"
               id="pomodoro"
@@ -62,6 +65,7 @@ function TimerSettingsModal() {
             <SettingInput
               defaultValue={shortBreak}
               min="1"
+              max="60"
               type="number"
               name="shortBreak"
               id="shortBreak"
@@ -75,6 +79,7 @@ function TimerSettingsModal() {
             <SettingInput
               defaultValue={longBreak}
               min="1"
+              max="60"
               type="number"
               name="longBreak"
               id="longBreak"

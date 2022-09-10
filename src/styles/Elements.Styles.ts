@@ -94,7 +94,7 @@ export const SettingInput = styled.input`
   font-size: 1.1em;
   padding: 10px;
   border: none;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid rgb(9, 104, 83);
   background-color: white;
   font-weight: 400;
   height: 20px;
