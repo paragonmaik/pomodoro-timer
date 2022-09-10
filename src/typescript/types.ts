@@ -5,6 +5,7 @@ export type TimerContextProps = {
   isStartAvailable: boolean,
   isOpen: boolean,
   shouldAutoStart: boolean,
+  darkMode: boolean,
   setIsOpen: (open: boolean) => void,
   setTimerData: (timer: TimerSettings) => void,
   switchMode: (mode: string) => void,
@@ -14,6 +15,7 @@ export type TimerContextProps = {
   setIsStartAvailable: (isStartAvailable: boolean) => void,
   setShouldAutoStart: (shouldAutoStart: boolean) => void,
   updateTimer: (updatedTimer: timer) => void,
+  setDarkMode: (darkMode: boolean) => void,
 }
 
 export type TimerContextProviderProps = {
@@ -50,4 +52,5 @@ export interface Todo {
 
 export interface Props {
   textDec?: boolean,
+  darkMode?: boolean,
 }

@@ -4,11 +4,12 @@ import { GenericContainer } from '../styles/Container.Styles';
 import { ModeButton } from '../styles/Elements.Styles';
 
 function PomodoroSelectors() {
-  const { handleMode } = useContext(TimerContext);
+  const { handleMode, darkMode } = useContext(TimerContext);
 
   return (
     <GenericContainer>
       <ModeButton
+        darkMode={darkMode}
         type='button'
         id='pomodoro'
         onClick={ (event) => handleMode(event) }
@@ -16,6 +17,7 @@ function PomodoroSelectors() {
         Pomochoro
       </ModeButton>
       <ModeButton
+        darkMode={darkMode}
         type='button'
         id='shortBreak'
         onClick={ (event) => handleMode(event) }
@@ -23,6 +25,7 @@ function PomodoroSelectors() {
         Short Break
       </ModeButton>
       <ModeButton
+        darkMode={darkMode}
         type='button'
         id='longBreak'
         onClick={ (event) => handleMode(event) }

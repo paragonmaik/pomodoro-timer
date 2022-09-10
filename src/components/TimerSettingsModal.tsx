@@ -12,7 +12,7 @@ import { TimerSettingsContainer,
 } from '../styles/Container.Styles';
 
 function TimerSettingsModal() {
-  const { setIsOpen, shouldAutoStart, setShouldAutoStart, setTimerData } = useContext(TimerContext);
+  const { setIsOpen, shouldAutoStart, setShouldAutoStart, setTimerData, darkMode, setDarkMode } = useContext(TimerContext);
   const { pomodoro, shortBreak, longBreak } = defaultSettings;
 
   const handleTimerChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -26,29 +26,38 @@ function TimerSettingsModal() {
     setTimerData({...updatedTimer});
   }
   
-
   const handleAutoStart = (event: ChangeEvent<HTMLInputElement>) => {
     setShouldAutoStart(event.target.checked);
   }
 
+  const handleDarkMode = (event: ChangeEvent<HTMLInputElement>) => {
+    setDarkMode(event.target.checked);
+  }
+
   return (
     <ModalContainer>
-      <TimerSettingsContainer>
+      <TimerSettingsContainer
+        darkMode={darkMode}
+      >
         <FlexRowDiv>
           <h4>Timer Settings</h4>
           <TaskButton
+            darkMode={darkMode}
             type="button"
             onClick={ () => setIsOpen(false) }
           >
             ×
           </TaskButton>
         </FlexRowDiv>
-        <TimerInputContainer>
+        <TimerInputContainer
+          darkMode={darkMode}
+        >
           <LabelContainer>
             <label htmlFor="pomodoro">
               Pomochoro
             </label>
             <SettingInput
+              darkMode={darkMode}
               defaultValue={pomodoro}
               min="1"
               max="60"
@@ -63,6 +72,7 @@ function TimerSettingsModal() {
               Short Break
             </label>
             <SettingInput
+              darkMode={darkMode}
               defaultValue={shortBreak}
               min="1"
               max="60"
@@ -77,6 +87,7 @@ function TimerSettingsModal() {
               Long Break
             </label>
             <SettingInput
+              darkMode={darkMode}
               defaultValue={longBreak}
               min="1"
               max="60"
@@ -93,12 +104,28 @@ function TimerSettingsModal() {
           </span>
           <CheckBoxWrapper>
             <Checkbox
+              darkMode={darkMode}
               checked={shouldAutoStart}
               onChange={ (event) => handleAutoStart(event) }
               id="checkbox"
               type="checkbox"
             />
             <CheckBoxLabel htmlFor="checkbox" />
+          </CheckBoxWrapper>
+        </GenericContainer>
+        <GenericContainer>
+          <span>
+            Dark Mode
+          </span>
+          <CheckBoxWrapper>
+            <Checkbox
+              darkMode={darkMode}
+              checked={darkMode}
+              onChange={ (event) => handleDarkMode(event) }
+              id="dmCheckbox"
+              type="checkbox"
+            />
+            <CheckBoxLabel htmlFor='dmCheckbox' />
           </CheckBoxWrapper>
         </GenericContainer>
       </TimerSettingsContainer>

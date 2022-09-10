@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { TimerContext } from '../context/TimerContext';
 import { TimerSettings } from '../typescript/types';
 import { TimerCardContainer,
-  GenericContainer, MainContainer,
+  GenericContainer, AppWrapper,
   BarContainer } from '../styles/Container.Styles';
 import { StartButton } from '../styles/Elements.Styles';
 import Timer from '../components/Timer';
@@ -18,6 +18,7 @@ function Home() {
     setIsStartAvailable,
     stopTimer,
     isOpen,
+    darkMode,
   } = useContext(TimerContext);
 
   const handleStartButton = () => {
@@ -31,19 +32,24 @@ function Home() {
   
   return (
     <>
-      <MainContainer>
+      <AppWrapper>
         <NavBar />
-        <BarContainer>
+        <BarContainer
+          darkMode={darkMode}
+        >
           <progress
             value={+timerData[timerData.mode as keyof TimerSettings] * 60 - timerData.timeRemaining.total}
             max={+timerData[timerData.mode as keyof TimerSettings] * 60}
           />
         </BarContainer>
-        <TimerCardContainer>
+        <TimerCardContainer
+          darkMode={darkMode}
+        >
           <PomodoroSelectors />
           <Timer {...timerData.timeRemaining} />
             <GenericContainer>
               <StartButton
+                darkMode={darkMode}
                 onClick={ handleStartButton }
                 type="button"
                 >
@@ -53,7 +59,7 @@ function Home() {
         </TimerCardContainer>
         <TodoList />
         {isOpen && <TimerSettingsModal />}
-      </MainContainer>
+      </AppWrapper>
     </>
   )
 }

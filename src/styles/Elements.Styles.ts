@@ -1,30 +1,30 @@
 import styled from 'styled-components';
 import { Props } from '../typescript/types';
 
-export const ModeButton = styled.button`
+export const ModeButton = styled.button<Props>`
   cursor: pointer;
   border: none;
   border-radius: 5px;
   padding: 5px;
   margin: 0 5px;
   width: 30%;
-  background-color: rgb(15, 191, 152);
+  background-color: ${(props) => props.darkMode ? 'rgb(44, 44, 56)' : 'rgb(15, 191, 152)'};
   font-size: 1em;
   color: white;
   &:focus-visible, &:focus {
-    background-color: rgb(10, 128, 100);
+    background-color: ${(props) => props.darkMode ? 'rgb(33, 33, 45)' : 'rgb(10, 128, 100)'};
   }
 `
 
-export const StartButton = styled.button`
+export const StartButton = styled.button<Props>`
   font-size: 1.3em;
   border: none;
-  box-shadow: lightgray 0px 6px 0px;
+  box-shadow: ${(props) => props.darkMode ? 'rgb(88, 86, 135)' : 'lightgray'} 0px 6px 0px;
   border-radius: 5px;
-  background-color: white;
+  background-color: ${(props) => props.darkMode ? 'rgb(100, 95, 195)' : 'white'};
   font-weight: 400;
   height: 50px;
-  color: rgb(10, 128, 100);
+  color:${(props) => props.darkMode ? 'white' : 'rgb(10, 128, 100)'};
   width: 80%;
   cursor: pointer;
   &:active {
@@ -34,20 +34,20 @@ export const StartButton = styled.button`
   }
 `
 
-export const NavButton = styled.button`
+export const NavButton = styled.button<Props>`
   cursor: pointer;
   border: none;
   border-radius: 5px;
   padding: 5px;
   width: 30%;
   height: 30px;
-  background-color: rgb(15, 191, 152);
+  background-color: ${(props) => props.darkMode ? 'rgb(44, 44, 56)' : 'rgb(15, 191, 152)'};
   font-size: 1em;
   color: white;
   &:disabled {
     color: rgb(195, 195, 195);
     border: 1px solid;
-    background-color: rgb(10, 128, 100);
+    background-color: ${(props) => props.darkMode ? 'rgb(33, 33, 45)' : 'rgb(10, 128, 100)'};
   }
 `
 
@@ -68,7 +68,7 @@ export const TodoInput = styled.input`
   color: rgb(10, 128, 100);
 `
 
-export const AddButton = styled.button`
+export const AddButton = styled.button<Props>`
   cursor: pointer;
   position: absolute;
   margin: 15px -30px;
@@ -80,32 +80,32 @@ export const AddButton = styled.button`
   color: rgb(10, 128, 100);
 `
 
-export const TaskButton = styled.button`
+export const TaskButton = styled.button<Props>`
   cursor: pointer;
   border: none;
   border-radius: 50%;
-  background-color: white;
+  background-color: ${(props) => props.darkMode ? 'rgb(100, 95, 195)' : 'white'};
   font-size: 1.3em;
   font-weight: 600;
-  color: rgb(10, 128, 100);
+  color: ${(props) => props.darkMode ? 'white' : 'rgb(10, 128, 100)'};
 `
 
-export const SettingInput = styled.input`
+export const SettingInput = styled.input<Props>`
   font-size: 1.1em;
   padding: 10px;
   border: none;
-  border-bottom: 2px solid rgb(9, 104, 83);
-  background-color: white;
+  border-bottom: 2px solid ${(props) => props.darkMode ? 'rgb(88, 86, 135)' : 'rgb(9, 104, 83)'};
+  background-color: ${(props) => props.darkMode ? 'rgb(44, 44, 56)' : 'white'};
   font-weight: 400;
   height: 20px;
-  color: rgb(10, 128, 100);
+  color: ${(props) => props.darkMode ? 'white' : 'rgb(10, 128, 100)'};
   max-width: 100%;
 `
 
 export const CheckBoxWrapper = styled.div`
   position: relative;
   margin-left: 20px;
-`;
+`
 
 export const CheckBoxLabel = styled.label`
   position: absolute;
@@ -128,14 +128,14 @@ export const CheckBoxLabel = styled.label`
     transition: 0.2s;
   }
 `;
-export const Checkbox = styled.input`
+export const Checkbox = styled.input<Props>`
   opacity: 0;
   z-index: 1;
   border-radius: 15px;
   width: 42px;
   height: 26px;
   &:checked + ${CheckBoxLabel} {
-    background: rgb(15, 191, 152);
+    background: ${(props) => props.darkMode ? 'rgb(100, 95, 195)' : 'rgb(15, 191, 152)'};
     &::after {
       content: "";
       display: block;

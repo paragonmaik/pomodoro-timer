@@ -1,21 +1,22 @@
 import styled from 'styled-components';
+import { Props } from '../typescript/types';
 
-export const AppContainer = styled.main`
-  background-color: rgb(10, 128, 100);
+export const AppContainer = styled.main<Props>`
+  background-color: ${(props) => props.darkMode ? 'rgb(33, 33, 45)' : 'rgb(10, 128, 100)'};
   display: flex;
   height: 100%;
   width: 100vw;
 `
 
-export const MainContainer = styled.section`
+export const AppWrapper = styled.section`
   display: flex;
   flex-direction: column;
   margin: 20px auto;
   padding: 20px 0;
 `
 
-export const TimerCardContainer = styled.article`
-  background-color: rgb(15, 191, 152);
+export const TimerCardContainer = styled.article<Props>`
+  background-color: ${(props) => props.darkMode ? 'rgb(44, 44, 56)' : 'rgb(15, 191, 152)'};
   padding: 0 10px;
   border-radius: 5%;
   display: flex;
@@ -34,7 +35,7 @@ export const GenericContainer = styled.div`
   width: 100%;
 `
 
-export const BarContainer = styled.div`
+export const BarContainer = styled.div<Props>`
   width: 100vw;
   display: flex;
   justify-content: center;
@@ -46,7 +47,7 @@ export const BarContainer = styled.div`
       border-radius: 10px;
       height: 3px;
       width: 100%;
-      background-color: rgb(9, 104, 83);
+      background-color: ${(props) => props.darkMode ? 'rgb(88, 86, 135)' : 'rgb(9, 104, 83)'};
     }
     ::-webkit-progress-value {
       border-radius: 10px;
@@ -82,7 +83,7 @@ export const TasksContainer = styled.section`
   min-height: 350px;
 `
 
-export const Task = styled.div`
+export const Task = styled.div<Props>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -91,10 +92,10 @@ export const Task = styled.div`
   padding: 5px;
   border: none;
   border-radius: 5px;
-  background-color: white;
+  background-color: ${(props) => props.darkMode ? 'rgb(100, 95, 195)' : 'white'};
   font-weight: 400;
   height: 40px;
-  color: rgb(10, 128, 100);
+  color: ${(props) => props.darkMode ? 'white' : 'rgb(10, 128, 100)'};
   max-width: 80%;
   min-width: 220px;
 `
@@ -106,9 +107,9 @@ export const FlexRowDiv = styled.div`
   gap: 30px;
 `
 
-export const TimerSettingsContainer = styled.section`
-  background-color: white;
-  color: rgb(33, 32, 32);
+export const TimerSettingsContainer = styled.section<Props>`
+  background-color: ${(props) => props.darkMode ? 'rgb(44, 44, 56)' : 'white'};
+  color: ${(props) => props.darkMode ? 'white' : 'rgb(33, 32, 32)'};
   padding: 20px 20px;
   border-radius: 5%;
   display: flex;
@@ -116,14 +117,14 @@ export const TimerSettingsContainer = styled.section`
   margin: 0 auto;
   justify-content: space-between;
   width: 80vw;
-  max-height: 400px;
+  max-height: 450px;
   @media (min-width: 600px) {
     max-width: 300px;
   }
 `
 
-export const TimerInputContainer = styled.div`
-  color: rgb(10, 128, 100);
+export const TimerInputContainer = styled.div<Props>`
+  color: ${(props) => props.darkMode ? 'white' : 'rgb(10, 128, 100)'};
   display: flex;
   width: 100%;
   justify-content: space-between;

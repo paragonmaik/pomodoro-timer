@@ -1,11 +1,13 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useContext } from 'react';
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 import { TasksContainer, Task, FlexRowDiv } from '../styles/Container.Styles'
 import { TodoInput, AddButton, TaskButton, TaskParagraph } from '../styles/Elements.Styles'
 import { Todo } from '../typescript/types';
 import taskAudio from '../sounds/task-sound.mp3';
+import { TimerContext } from '../context/TimerContext';
 
 function TodoList() {
+  const { darkMode } = useContext(TimerContext);
   const [todoTasks, updateDraggableTasks] = useState<Todo[]>([]);
   const taskSound = new Audio(taskAudio);
 
@@ -62,11 +64,12 @@ function TodoList() {
           Tasks
         </h2>
         <TaskButton
-            type="button"
-            onClick={ handleRemoveAllTasks }
-          >
-            ×
-          </TaskButton>
+          darkMode={darkMode}
+          type="button"
+          onClick={ handleRemoveAllTasks }
+        >
+          ×
+        </TaskButton>
       </FlexRowDiv>
       <DragDropContext onDragEnd={ handleDragEnd }>
         <Droppable droppableId='tasks'>
@@ -75,7 +78,12 @@ function TodoList() {
               {todoTasks?.map(({ value, id, finished }, i) => (
                 <Draggable key={id} draggableId={id.toString()} index={i}>
                   {(provided) => (
-                    <Task {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} >
+                    <Task
+                    darkMode={darkMode}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      ref={provided.innerRef}  
+                    >
                       <TaskParagraph
                         textDec={finished}
                       >
@@ -83,12 +91,14 @@ function TodoList() {
                       </TaskParagraph>
                       <div>
                         <TaskButton
+                          darkMode={darkMode}
                           type="button"
                           onClick={ () => handleFinishTask(id) }
                         >
                           ☑
                         </TaskButton>
                         <TaskButton
+                          darkMode={darkMode}
                           type="button"
                           onClick={ () => handleRemoveTask(id) }
                         >
