@@ -119,8 +119,6 @@ function TodoList() {
       </form>
     </TasksContainer>
   )
-};
+}
 
 export default TodoList
-
-// ☑

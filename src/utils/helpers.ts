@@ -1,6 +1,6 @@
 function getEndingTimeInMs(totalMinutes: number) {
   return +Date.parse(new Date().toString()) + totalMinutes * 1000;
-};
+}
 
 function getRemainingTimer(endingTimeInMs: number) {
   const currentTimeInMs = Date.parse(new Date().toString());

@@ -1,5 +1,5 @@
-import { timer } from "../typescript/types";
-import { GenericContainer, CounterContainer } from "../styles/Container.Styles";
+import { timer } from '../typescript/types';
+import { GenericContainer, CounterContainer } from '../styles/Container.Styles';
 
 function Timer({ minutes, seconds }: timer) {
 

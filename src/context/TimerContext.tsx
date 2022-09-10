@@ -62,7 +62,7 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
     }
     selectMode[mode as keyof selectModeOptions]();
     if (shouldAutoStart) handleStartTimer();
-  };
+  }
 
   function stopTimer() {
     buttonSound.play();
@@ -110,5 +110,4 @@ export function TimerProvider({ children }: TimerContextProviderProps) {
     }>
     {children}
   </TimerContext.Provider>
-};
-
+}
